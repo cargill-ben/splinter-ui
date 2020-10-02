@@ -62,6 +62,9 @@
   "dependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "splinter-saplingjs": "github:cargill/splinter-saplingjs#master"
+    "protobufjs": "^6.8.9",
+    "splinter-saplingjs": "github:cargill/splinter-saplingjs#master",
+    "transact-sdk-javascript": "github:hyperledger/transact-sdk-javascript#master"
+  
   }
 }
