@@ -14,8 +14,6 @@
 
 syntax = "proto3";
 
-import "transaction.proto";
-
 message BatchHeader {
     // Public key for the client that signed the BatchHeader
     string signer_public_key = 1;
