@@ -14,62 +14,64 @@
  * limitations under the License.
  */
 
-// import { Secp256k1Signer, Secp256k1PrivateKey } from 'transact-sdk-javascript';
+import { makeBatch } from "./batch";
 
-// import crypto from 'crypto';
-import protos from '../protobuf';
+ export const makePayload = (
+    private_key, 
+    public_key,
+    namespace, 
+    contract_name,
+    permission_read, 
+    permission_write, 
+    inputs,
+    outputs, 
+    version, 
+    contract, 
+    owners
+ ) => {
+    let create_contact_registry = {};
+    let create_contract = {};
+    let create_namespace_registry = {};
+    let create_permissions = {};
+    let payloads = [];
+    let actionTypes = [];
+    let batchBytes = null;
 
-export const makeSignedPayload = (
-    localNodeID,
-    privateKey,
-    action,
-    actionType
-) => {
-    let actionBytes = null;
-    let actionEnum = null;
-    const payload = {};
+    create_contact_registry = protos.CreateContractRegistryAction.create({
+        name: contract_name,
+        owners: owners
+    });
 
-    // const secp256PrivateKey = Secp256k1PrivateKey.fromHex(privateKey);
-    // const signer = new Secp256k1Signer(secp256PrivateKey);
+    create_contract = protos.CreateContractAction.create({
+        name: contract_name,
+        version: version,
+        inputs: inputs,
+        outputs: outputs,
+        contract: contract
+    });
 
-    switch (actionType) {
-        case 'createContractRegistry': {
-            actionBytes = protos.CreateContractRegistryAction.encode(action).finish();
-            payload.createContractRegistryAction = action;
-            actionEnum =
-                protos.SabrePayload.Action.CREATE_CONTRACT_REGISTRY;
-            break;
-        }
-        case 'createContract': {
-            actionBytes = protos.CreateContractAction.encode(action).finish();
-            payload.createContractAction = action;
-            actionEnum =
-                protos.SabrePayload.Action.CREATE_CONTRACT;
-            break;
+    create_namespace_registry = protos.CreateNamespaceRegistryAction.create({
+        namespace: namespace,
+        owners: owners
+    });
 
-        }
-        case 'createNamespaceRegistry': {
-            actionBytes = protos.CreateNamespaceRegistryAction.encode(action).finish();
-            payload.createNamespaceRegistryAction = action;
-            actionEnum =
-                protos.SabrePayload.Action.CREATE_NAMESPACE_REGISTRY;
-            break;
-        }
-        case 'createSmartPermission': {
-            actionBytes = protos.CreateSmartPermissionAction.encode(action).finish();
-            payload.createSmartPermissionAction = action;
-            actionEnum =
-                protos.SabrePayload.Action.CREATE_SMART_PERMISSION;
-            break;
-        }
-        default:
-            throw new Error(`unhandled action type: ${action.type}`);
-    }
+    create_permissions = protos.CreateNamespaceRegistryPermissionAction.create({
+        namespace: namespace,
+        contract_name: contract_name,
+        read: permission_read,
+        write: permission_write
+    });
 
-    const serializedPayload = protos.SabrePayload.encode({
-        ...payload,
-        action
-      }).finish();
-    
-    return serializedPayload;
-};
+    payloads.push(create_contact_registry);
+    payloads.push(create_contract);
+    payloads.push(create_namespace_registry);
+    payloads.push(create_permissions);
+
+    actionTypes.push("createContractRegistry");
+    actionTypes.push("createContract");
+    actionTypes.push("createNamespaceRegistry");
+    actionTypes.push("createNamespaceRegistryPermissionAction");
+
+    batchBytes = makeBatch(payloads, actionTypes, private_key, public_key);
+    return batchBytes;
+ }
