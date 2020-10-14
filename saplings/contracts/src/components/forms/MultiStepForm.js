@@ -18,6 +18,7 @@ import React, { useState } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { createCallPayload } from '../../api/splinter';
 
 import './MultiStepForm.scss';
 
@@ -40,6 +41,12 @@ export function MultiStepForm({
 }) {
   const [step, setStep] = useState(1);
 
+  const callPayload = e => {
+    e.preventDefault();
+    console.log("Reached here: callPayload");
+    createCallPayload();
+    
+  };
   const previous = e => {
     e.preventDefault();
     setStep(step - 1);
@@ -127,7 +134,7 @@ export function MultiStepForm({
               type="button"
               className="form-button confirm"
               disabled={!isStepValidFn(step)}
-              onClick={next}
+              onClick={callPayload}
             >
               Next
             </button>

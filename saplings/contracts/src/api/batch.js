@@ -15,7 +15,7 @@
  */
 
 import { Secp256k1Signer, Secp256k1PrivateKey } from 'transact-sdk-javascript';
-import { makeTransaction } from 'transaction.js'
+import { makeTransaction } from './transaction.js'
 import protos from '../protobuf';
 
 export const makeBatch = (
