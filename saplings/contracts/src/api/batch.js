@@ -24,7 +24,6 @@ export const makeBatch = (
     private_key,
     public_key
 ) => {
-    console.log("reached makeBatch");
     let transactions = [];
     let transactionIds = [];
     let batchHeaderBytes = null;

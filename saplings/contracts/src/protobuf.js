@@ -18,7 +18,6 @@ import protobuf from 'protobufjs';
 const protoJSON = require('./compiled_protos_contract.json');
 
 const root = protobuf.Root.fromJSON(protoJSON);
-console.log("reached protobuf.js");
 export default Object.keys(root)
   .filter(key => /^[A-Z]/.test(key))
   .reduce((acc, key) => {

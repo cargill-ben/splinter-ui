@@ -71,7 +71,6 @@ export const createCallPayload = async () => {
 };
 
 export const postSmartContractPayload = async payload => {
-  console.log("reached postSmartContractPayload");
   const result = await post(`${splinterURL}/scabbard/aA3st-MV0eh/abcd/batches`, payload);
 
   if (!result.ok) {

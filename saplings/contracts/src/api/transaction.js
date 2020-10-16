@@ -25,7 +25,6 @@ export const makeTransaction = (
     action,
     actionType
 ) => {
-    console.log("reached makeTransaction");
     let transactionHeaderBytes = null;
     let transaction = null;
     let hashPayload = null;
