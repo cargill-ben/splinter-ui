@@ -15,6 +15,7 @@
  */
 
 import { makeBatch } from "./batch";
+import protos from '../protobuf';
 
  export const makePayload = (
     private_key, 
@@ -71,6 +72,8 @@ import { makeBatch } from "./batch";
     actionTypes.push("createContract");
     actionTypes.push("createNamespaceRegistry");
     actionTypes.push("createNamespaceRegistryPermissionAction");
+    console.log(actionTypes);
+    console.log(payloads);
 
     batchBytes = makeBatch(payloads, actionTypes, private_key, public_key);
     return batchBytes;

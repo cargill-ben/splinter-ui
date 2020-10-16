@@ -24,16 +24,19 @@ export const makeBatch = (
     private_key,
     public_key
 ) => {
+    console.log("reached makeBatch");
     let transactions = [];
     let transactionIds = [];
+    let batchHeaderBytes = null;
+    let batchBytes = null;
 
-    const secp256PrivateKey = Secp256k1PrivateKey.fromHex(privateKey);
+    const secp256PrivateKey = Secp256k1PrivateKey.fromHex(private_key);
     const signer = new Secp256k1Signer(secp256PrivateKey);
 
-    for(var i = 0; payloads.length; i++) {
+    for(var i = 0; i < payloads.length; i++) {
         transactions.push(makeTransaction(public_key, private_key, payloads[i], actionTypes[i]));
     }
-    for(var i = 0; transactions.length; i++) {
+    for(var i = 0; i < transactions.length; i++) {
         transactionIds.push(transactions[i].header_signature);
     }
 

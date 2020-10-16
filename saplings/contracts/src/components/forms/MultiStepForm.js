@@ -42,7 +42,6 @@ export function MultiStepForm({
   const [step, setStep] = useState(1);
 
   const callPayload = e => {
-    e.preventDefault();
     console.log("Reached here: callPayload");
     createCallPayload();
     

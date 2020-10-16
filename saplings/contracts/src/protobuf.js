@@ -15,10 +15,10 @@ import protobuf from 'protobufjs';
 
 // ignoring because this file is generated before deploying
 // eslint-disable-next-line import/no-unresolved
-const protoJSON = require('./compiled_protos.json');
+const protoJSON = require('./compiled_protos_contract.json');
 
 const root = protobuf.Root.fromJSON(protoJSON);
-
+console.log("reached protobuf.js");
 export default Object.keys(root)
   .filter(key => /^[A-Z]/.test(key))
   .reduce((acc, key) => {
