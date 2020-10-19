@@ -40,6 +40,7 @@ import protos from '../protobuf';
 
     create_contact_registry = protos.CreateContractRegistryAction.create({
         name: contract_name,
+        // Owners is a a list of public keys of users that are allowed to add new contract versions, delete old versions and delete the registry
         owners: owners
     });
 

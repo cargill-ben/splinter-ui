@@ -60,7 +60,7 @@ export const createCallPayload = async () => {
     ['00ec03', '1cf126', 'cad11d'],
     '1.0',
     fileBuffer, 
-    ['alice', 'bob']
+    ['0a99cab0c5c26e96aad52cfa3dbbf947b16fa010fbf0ed7bcad4b73352c0779a', '0219a3f066fb244c1f7d4953882ca6a8641f91ace5baa1ce6b5b605c470b5e505e']
   );
   try {
     await postSmartContractPayload(payload_result);
